@@ -57,3 +57,43 @@ module.css에서 클래스이름을 추가해줄때 클래스 이름을 텍스�
 → 하지만 이것도 module.css의 클래스 이름들을 기억해야하고 조건문들을 써야해서 불편함
 
 ### Styles JSX
+
+어플리케이션에 styles를 추가하는 또다른 방식(NextJS 고유의 방법)
+
+module.css처럼 모듈들이 독립되어 있음
+
+파일 import도 필요 없고 클래스 이름도 고려할 필요 없음(무작위 클래스 이름이 추가됨)
+
+그냥 클래스 이름이나 태그 이름으로 타겟팅하면 됨
+
+부모 컴포넌트가 그 클래스 이름을 사용하고 있어도 상관이 없다.(작동하지가 않는다.)
+
+→ 스타일은 오직 컴포넌트 내부에서만 범위가 한정됨
+
+(styled jsx는 styles를 한정시키거나 이 컴포넌트만을 위해 고립시킨다.)
+
+style jsx global은 styles를 “모두”에게 적용시켜준다.
+
+### Custom App(Global Styles)
+
+NextJS concept: App Component, App Page
+
+NextJS는 랜더링되기 전에 먼저 \_app을 본다. 그 뒤에 다른 페이지들을 랜더링함
+
+컴포넌트 내에 css를 import하고 싶다면 반드시 module이어야 한다.
+
+하지만 커스텀 App 컴포넌트가 있는 곳이라면 모든 Global Styles를 import할 수 있다.
+
+### Recap
+
+<style jsx global> → styles를 모두에게 적용시켜줌
+
+rehydration: NextJS가 백엔드상에서 ReactJS를 돌리고 있고 NextJS가 페이지를 pre-generate(사전생성)할 거고, 그건 HTML페이지가 됨(유저가 웹사이트에서 보게 될 HTML)
+
+유저가 모든 JS를 다운로드 한 후, ReactJS가 다시 주도권을 가져오고 모든게 일반적인 ReactJS처럼 동작
+
+유저에게 HTML 보여짐 → ReactJS가 프론트엔드에 나타남 → ReactJS가 주도권 가짐
+
+NextJS를 다룰때에는 반드시 하나의 큰 어플리케이션이 아니라 각각의 나뉘어진 페이지를 생각해야 한다. → 한 페이지에 Global Styles를 적용해도 다른 페이지에는 적용되지 않음
+
+→ 모든 페이지에 적용시키고 싶다면 Custom App Component(_app) 이용
